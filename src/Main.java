@@ -16,6 +16,7 @@ public class Main {
         fleet2 = simulation.loadU2(phase2);
         phase1Budget = simulation.runSimulation(fleet1);
         phase2Budget = simulation.runSimulation(fleet2);
+        total = phase1Budget + phase2Budget;
         System.out.println("U2 Phase 1: $" + phase1Budget + ", U2 Phase 2: $" + phase2Budget + ". Total: $" + total);
     }
 }

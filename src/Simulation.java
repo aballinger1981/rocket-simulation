@@ -20,26 +20,66 @@ public class Simulation {
         return list;
     }
 
-    public ArrayList<Item> loadU1(ArrayList<Item> items) {
-        int weightU1 = 8;
-        U1 rocket1 = new U1();
+    public ArrayList<Rocket> loadU1(ArrayList<Item> items) {
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        ArrayList<Rocket> rocketList = new ArrayList<Rocket>();
+        U1 rocket = new U1();
         for (Item item : items) {
-            if (weightU1 - item.weight >= 0) {
-
+            if (rocket.canCarry(item)) {
+                rocket.carry(item);
+            } else {
+                rocketList.add(rocket);
+                itemList.clear();
+                rocket = new U1();
+                if (rocket.canCarry(item)) {
+                    rocket.carry(item);
+                }
             }
+            itemList.add(item);
         }
+        if (itemList.size() > 0) {
+            rocket = new U1();
+            rocketList.add(rocket);
+        }
+        return rocketList;
     }
 
-    public ArrayList<Item> loadU2(ArrayList<Item> items) {
-        int weightU2 = 11;
+    public ArrayList<Rocket> loadU2(ArrayList<Item> items) {
+        ArrayList<Item> itemList = new ArrayList<Item>();
+        ArrayList<Rocket> rocketList = new ArrayList<Rocket>();
+        U2 rocket = new U2();
         for (Item item : items) {
-            if (weightU2 - item.weight >= 0) {
-
+            if (rocket.canCarry(item)) {
+                rocket.carry(item);
+            } else {
+                rocketList.add(rocket);
+                itemList.clear();
+                rocket = new U2();
+                if (rocket.canCarry(item)) {
+                    rocket.carry(item);
+                }
             }
+            itemList.add(item);
         }
+        if (itemList.size() > 0) {
+            rocket = new U2();
+            rocketList.add(rocket);
+        }
+        return rocketList;
     }
 
-    public runSimulation(ArrayList<Item> rockets) {
-
+    public long runSimulation(ArrayList<Rocket> rockets) {
+        long totalBudget = 0;
+        for (Rocket rocket : rockets) {
+            boolean launched = rocket.launch();
+            boolean landed = rocket.land();
+            while (!launched || !landed) {
+                launched = rocket.launch();
+                landed = rocket.land();
+                totalBudget += rocket.cost;
+            }
+            totalBudget += rocket.cost;
+        }
+        return totalBudget;
     }
 }

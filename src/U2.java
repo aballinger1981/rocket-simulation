@@ -10,7 +10,7 @@ public class U2 extends Rocket {
     }
 
     public boolean land() {
-        double chance = (crashChance / 100) * (weight / maxWeight);
+        double chance = ((double) weight) * explosionChance / maxWeight;
         double randomNumber = (Math.random() * 100);
         if (randomNumber < chance) {
             return false;
@@ -19,7 +19,7 @@ public class U2 extends Rocket {
     }
 
     public boolean launch() {
-        double chance = (explosionChance / 100) * (weight / maxWeight);
+        double chance = ((double) weight) * explosionChance / maxWeight;
         double randomNumber = (Math.random() * 100);
         if (randomNumber < chance) {
             return false;

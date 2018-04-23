@@ -1,5 +1,5 @@
 public class Rocket implements SpaceShip {
-    int cost;
+    long cost;
     int weight;
     int maxWeight;
     int explosionChance;
